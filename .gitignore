@@ -1,0 +1,60 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+.flattened-pom.xml
+*.jar
+
+# Node.js / npm / yarn
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+dist/
+build/
+
+# React
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE - VS Code
+.vscode/
+*.code-workspace
+
+# IDE - IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+*.class
+
+# IDE - Android Studio
+.gradle/
+.DS_Store
+local.properties
+*.iml
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+.gitkeep
+
+# Compiled Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Misc
+*.log
+.env
+.DS_Store

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Login(){
   const [email, setEmail] = useState('')
@@ -13,7 +13,7 @@ export default function Login(){
     setError(null)
     setLoading(true)
     try{
-      const res = await fetch('http://localhost:8081/api/auth/login',{
+      const res = await fetch('http://localhost:8080/api/auth/login',{
         method:'POST', headers:{'Content-Type':'application/json'},
         body:JSON.stringify({email,password})
       })
@@ -35,14 +35,41 @@ export default function Login(){
   }
 
   return (
-    <div style={{maxWidth:420, margin:'24px auto', padding:16, border:'1px solid #eee', borderRadius:6}}>
-      <h2 style={{marginTop:0}}>Login</h2>
-      {error && <div style={{color:'red', marginBottom:8}}>{error}</div>}
+    <div style={{
+      background: 'white',
+      borderRadius: 12,
+      padding: 40,
+      boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+      maxWidth: 420
+    }}>
+      <h1 style={{fontSize: 28, marginBottom: 8, color: '#333'}}>Welcome Back</h1>
+      <p style={{color: '#999', marginBottom: 24, fontSize: 14}}>Sign in to your account</p>
+      
+      {error && <div style={{background: '#fee', color: '#c33', padding: 12, borderRadius: 6, marginBottom: 16, fontSize: 14}}>{error}</div>}
+      
       <form onSubmit={submit}>
-        <input placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} />
-        <input placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} />
-        <button type="submit" disabled={loading}>{loading ? 'Signing in...' : 'Login'}</button>
+        <input 
+          placeholder="Email" 
+          type="email"
+          value={email} 
+          onChange={e=>setEmail(e.target.value)} 
+          required
+        />
+        <input 
+          placeholder="Password" 
+          type="password" 
+          value={password} 
+          onChange={e=>setPassword(e.target.value)} 
+          required
+        />
+        <button type="submit" disabled={loading} style={{marginTop: 24}}>
+          {loading ? 'Signing in...' : 'Login'}
+        </button>
       </form>
+
+      <p style={{textAlign: 'center', marginTop: 20, fontSize: 14, color: '#999'}}>
+        Don't have an account? <Link to="/register" style={{color: '#667eea', fontWeight: 600}}>Register</Link>
+      </p>
     </div>
   )
 }

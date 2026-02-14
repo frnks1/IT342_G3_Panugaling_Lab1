@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Register(){
   const [username, setUsername] = useState('')
@@ -16,7 +16,7 @@ export default function Register(){
     setSuccess(null)
     setLoading(true)
     try{
-      const res = await fetch('http://localhost:8081/api/auth/register',{
+      const res = await fetch('http://localhost:8080/api/auth/register',{
         method:'POST', headers:{'Content-Type':'application/json'},
         body:JSON.stringify({username,email,password})
       })
@@ -33,16 +33,48 @@ export default function Register(){
   }
 
   return (
-    <div style={{maxWidth:420, margin:'24px auto', padding:16, border:'1px solid #eee', borderRadius:6}}>
-      <h2 style={{marginTop:0}}>Register</h2>
-      {error && <div style={{color:'red', marginBottom:8}}>{error}</div>}
-      {success && <div style={{color:'green', marginBottom:8}}>{success}</div>}
+    <div style={{
+      background: 'white',
+      borderRadius: 12,
+      padding: 40,
+      boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+      maxWidth: 420
+    }}>
+      <h1 style={{fontSize: 28, marginBottom: 8, color: '#333'}}>Create Account</h1>
+      <p style={{color: '#999', marginBottom: 24, fontSize: 14}}>Join us today and get started</p>
+      
+      {error && <div style={{background: '#fee', color: '#c33', padding: 12, borderRadius: 6, marginBottom: 16, fontSize: 14}}>{error}</div>}
+      {success && <div style={{background: '#efe', color: '#3c3', padding: 12, borderRadius: 6, marginBottom: 16, fontSize: 14}}>{success}</div>}
+      
       <form onSubmit={submit}>
-        <input placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)} />
-        <input placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} />
-        <input placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} />
-        <button type="submit" disabled={loading}>{loading ? 'Creating...' : 'Create account'}</button>
+        <input 
+          placeholder="Username" 
+          value={username} 
+          onChange={e=>setUsername(e.target.value)} 
+          required
+        />
+        <input 
+          placeholder="Email" 
+          type="email"
+          value={email} 
+          onChange={e=>setEmail(e.target.value)} 
+          required
+        />
+        <input 
+          placeholder="Password" 
+          type="password" 
+          value={password} 
+          onChange={e=>setPassword(e.target.value)} 
+          required
+        />
+        <button type="submit" disabled={loading} style={{marginTop: 24}}>
+          {loading ? 'Creating account...' : 'Create account'}
+        </button>
       </form>
+
+      <p style={{textAlign: 'center', marginTop: 20, fontSize: 14, color: '#999'}}>
+        Already have an account? <Link to="/login" style={{color: '#667eea', fontWeight: 600}}>Login</Link>
+      </p>
     </div>
   )
 }
